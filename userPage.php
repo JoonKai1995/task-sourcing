@@ -89,12 +89,12 @@ if(isset($_POST['submit1'])){
                         </div><br>
                         <div style="display: table-row">
                             <div style="width: 170px; display: table-cell;">
-                                <form method="post" name="form1" action="welcome.php">
+                                <form method="post" name="form1" action="userPage.php">
                                     <input type="submit" name="submit1" class="btn btn-primary" value="Submit a Bid">
                                 </form>
                             </div>
                             <div style="display: table-cell;">
-                                <form method="post" name="form1" action="welcome.php">
+                                <form method="post" name="form1" action="userPage.php">
                                     <input type="submit" name="submit2" class="btn btn-primary" value="Create a Task">
                                 </form>
                             </div>
