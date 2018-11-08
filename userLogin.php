@@ -16,12 +16,10 @@ if (isset($_POST['submit'])){
         $_SESSION['u_id']= $row[1];
         header("Location: userPage.php");
     }
-if (isset($_POST['submit2'])){
+} else if (isset($_POST['submit2'])){
     header("Location: adminLogin.php");
-}
-if (isset($_POST['submit3'])){
+} else if (isset($_POST['submit3'])){
     header("Location: createNewUser.php");
-}
 }
 ?>
 
