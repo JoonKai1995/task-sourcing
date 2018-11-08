@@ -53,11 +53,11 @@ if (isset($_POST['newAdmin'])){
         <div class="container">
             <div class="row">
                 <div class="col-xs-2 text-left">
-                    <div id="fh5co-logo"><a href="index.html">TaskSourcing<span>.</span></a></div>
+                    <div id="fh5co-logo"><a href="welcome.php">TaskSourcing<span>.</span></a></div>
                 </div>
                 <div class="col-xs-10 text-right menu-1">
                     <ul>
-                    <li class="active"><a href="index.html"><i class="icon-power"></i></a></li>
+                    <li class="active"><a href="welcome.php"><i class="icon-power"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -99,7 +99,7 @@ if (isset($_POST['newAdmin'])){
                                 </table>";
                             }
                             else{
-                                echo "<br>There are no availble tasks currently!<br><br>";
+                                echo "<br>There are no available tasks currently!<br><br>";
                             }
                             ?>
                         </div><br>
