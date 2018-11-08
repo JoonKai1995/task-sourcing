@@ -10,7 +10,7 @@ if (isset($_POST['return'])){
     $taskid = $_POST['taskid'];
     $bid = $_POST['bid'];
     $submitid = pg_query($db, "SELECT s.suser_ID FROM submits s WHERE s.stask_ID = $1", array($taskid));
-    $bidSuccess = pg_query($db, "INSERT INTO bids VALUES ($bid_value, $loginUID, $taskid, $submitid)");
+    $bidSuccess = pg_query($db, "INSERT INTO bids VALUES ($bid, $loginUID, $taskid, $submitid)");
 
     $error = pg_last_error($db);
     if(!$BidSuccess){
