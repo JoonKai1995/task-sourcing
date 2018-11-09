@@ -42,7 +42,6 @@ FOR EACH ROW
 EXECUTE PROCEDURE deleteOutdateTasks();
 --------------------------------------------------------------------
 -- Trigger to set task allocated to true from submits table if allocated
--- Not Tested Yet
 DROP FUNCTION checkifAllocated() CASCADE;
 
 CREATE OR REPLACE FUNCTION checkifAllocated()
