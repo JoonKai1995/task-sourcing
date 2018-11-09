@@ -196,7 +196,7 @@ include("header.php");
 						<img src="images/Samuel.jpg" alt="Free HTML5 Templates by gettemplates.co">
 						<h3>Lee Boon Howe, Samuel</h3>
 						<strong class="role">Back-end Developer</strong>
-						<p>Backelor of Information Systems <br>National University of Singapore</p>
+						<p>Bachelor of Science(Business Analytics) <br>National University of Singapore</p>
 					</div>
 				</div>
 			</div>
