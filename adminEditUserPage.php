@@ -18,6 +18,7 @@ if (isset($_POST['return'])){
         console.log($error);
     }else {
         echo "Update successful";
+        header("Location: adminEiditUserPage.php");
     }
 }
 
@@ -81,16 +82,6 @@ if (isset($_POST['delete'])){
                             }
                             ?>
                         </div><br>
-                            <form method = "post" name="changes">
-                                <strong>user ID*: </strong> <select name="userid">
-                                <?php 
-                                    $use = pg_query($db, "SELECT u.* FROM users u");
-                                    while ($rows = pg_fetch_array($use)){
-                                        echo "<option value='".$rows[1]."'>".$rows[1]."</option>";
-                                    }   
-                                ?>
-                                </select><br>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -105,7 +96,15 @@ if (isset($_POST['delete'])){
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
                             <p><form method="post" name="form" action="adminEditUserPage.php">
-                                <form method = "post" name="changes">
+                                    <strong>user ID*: </strong> <select name="userid">
+                                    <?php 
+                                        $use = pg_query($db, "SELECT u.* FROM users u");
+                                        while ($rows = pg_fetch_array($use)){
+                                            echo "<option value='".$rows[1]."'>".$rows[1]."</option>";
+                                        }   
+                                    ?>
+                                    </select>
+                                    <br><br>
                                     <label for="inputUser">Username: </label>
                                     <input type="text" name="username" class="form-control" id="inputUser" required>
                                     <label for="inputUser">Password: </label>
@@ -117,7 +116,7 @@ if (isset($_POST['delete'])){
                                 </form>
                             </p>
                             <p>Go Back?</p>
-                            <p><a href="adminPage.html" class="btn btn-primary">Return to Admin Page</a></p>
+                            <p><a href="adminPage.php" class="btn btn-primary">Return to Admin Page</a></p>
                         </div>
                     </div>
                 </div>

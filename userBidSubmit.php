@@ -9,8 +9,9 @@ if (isset($_POST['return'])){
 }else if (isset($_POST['submit'])){
     $taskid = $_POST['taskid'];
     $bid = $_POST['bid'];
-    $submitid = pg_query($db, "SELECT s.suser_ID FROM submits s WHERE s.stask_ID = $1", array($taskid));
-    $bidSuccess = pg_query($db, "INSERT INTO bids VALUES ($bid, $loginUID, $taskid, $submitid)");
+    $res = pg_query($db, "SELECT s.suser_ID FROM submits s WHERE s.stask_ID = '$taskid'");
+    $submitid = pg_fetch_result($res, 0, 0);
+    $bidSuccess = pg_query($db, "INSERT INTO bids VALUES ('$bid', '$loginUID', '$taskid', '$submitid')");
 
 
     $error = pg_last_error($db);
@@ -18,7 +19,7 @@ if (isset($_POST['return'])){
         echo $error;
         console.log($error);
     }else
-        echo "Bid successful";
+        echo "Bid Successful!";
         header("Location: userPage.php");
     }
 ?>
@@ -90,16 +91,6 @@ if (isset($_POST['return'])){
                                 }
                                 ?>
                         </div><br>
-                            <form method = "post" name="bid" action="userBidSubmit.php">
-                                <strong>Task ID*: </strong> <select name="taskid">
-                                    <?php 
-                                        $use = pg_query($db, "SELECT t.* FROM tasks t, submits s WHERE t.task_id = s.stask_ID AND s.suser_ID <> $loginUID AND t.task_allocated = 'FALSE'");
-                                        while ($rows = pg_fetch_array($use)){
-                                            echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
-                                        }   
-                                    ?>
-                                </select><br>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -114,12 +105,21 @@ if (isset($_POST['return'])){
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
                             <p><form method="post" name="form" action="userBidSubmit.php">
+                                <strong>Task ID*: </strong> <select name="taskid">
+                                    <?php 
+                                        $use = pg_query($db, "SELECT t.* FROM tasks t, submits s WHERE t.task_id = s.stask_ID AND s.suser_ID <> $loginUID AND t.task_allocated = 'FALSE'");
+                                        while ($rows = pg_fetch_array($use)){
+                                            echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
+                                        }   
+                                    ?>
+                                </select>
+                                <br><br>
                                 <div class='form-group'>
                                     <label for="inputUser">Bid Amount: </label>
                                     <input type="number" name="bid" class="form-control" id="inputUser" required>
                                 </div>
                                 <input type="submit" class="btn btn-primary" name="submit">
-
+                            </form>
                             </p>
                             <p>Go Back?</p>
                             <p><a href="userPage.php" class="btn btn-primary">Return to User Page</a></p>

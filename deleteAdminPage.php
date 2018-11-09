@@ -89,8 +89,7 @@ if (isset($_POST['return'])){
                 <div class="col-md-7 text-left">
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
-                            <p><form method="post" name="form" action="adminEditPage.php">
-                                <form method = "post" name="changes">
+                            <p><form method="post" name="form" action="deleteAdminPage.php">
                                     <strong>admin ID*: </strong> <select name="adminid">
                                     <?php 
                                         $use = pg_query($db, "SELECT a.* FROM administrators a WHERE a.admin_id <> '$loginUID'");
@@ -130,48 +129,3 @@ if (isset($_POST['return'])){
     <!-- Main -->
     <script src="js/main.js"></script>
 </body>
-
-<h2><b>Administrator Accounts:</b></h2>
-
-<?php
-if (pg_num_rows($result) > 0) {
-    echo "<table id='table' class='table table-striped table-bordered' style='width:100%'>
-    <thead>
-        <tr>
-            <th>Admin ID</th>
-            <th>Username</th>
-            <th>Password</th>
-        </tr>
-    </thead>
-    <tbody>";
-    while($row = pg_fetch_array( $result )) {
-        echo "<tr>";
-        echo "<td>" . $row[0] . "</td>";
-        echo "<td>" . $row[1] . "</td>";
-        echo "<td>" . $row[2] . "</td>";
-    }
-    echo "</tbody>
-    </table>";
-}
-else{
-    echo "<br>There are no Administrator accounts?<br><br>";
-}
-?>
-
-<form method = "post" name="changes" action="deleteAdminPage.php">
-    <strong>admin ID*: </strong> <select name="adminid">
-    <?php 
-        $use = pg_query($db, "SELECT a.* FROM administrators a WHERE a.admin_id <> '$loginUID'");
-        while ($rows = pg_fetch_array($use)){
-            echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
-        }   
-    ?>
-    </select><br>
-    <p> *Required</p>
-    <input type="submit" name="submit" value="Delete Admin">
-</form>
-
-<form method="post" name="form" action="deleteAdminPage.php">
-    <input type="submit" name="return" value=" Return to edit admin page">
-</form>
-

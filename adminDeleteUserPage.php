@@ -6,8 +6,8 @@ $result = pg_query($db, "SELECT u.* FROM users u");
 if (isset($_POST['return'])){
     header("Location: adminPage.php");
 }else if (isset($_POST['submit'])){
-    $userid = $_POST['adminid'];
-    $updateResult = pg_query($db, "DELETE FROM users WHERE user_id = $userid");
+    $userid = $_POST['userid'];
+    $updateResult = pg_query($db, "DELETE FROM users WHERE user_id = '$userid'");
 
     $error = pg_last_error($db);
     if(!$updateResult){
@@ -15,6 +15,7 @@ if (isset($_POST['return'])){
         console.log($error);
     }else {
         echo "Update successful";
+        header("Location: adminEditUserPage.php");
     }
 }
 
@@ -88,7 +89,7 @@ if (isset($_POST['return'])){
                 <div class="col-md-7 text-left">
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
-                            <p><form method = "post" name="changes">
+                            <p><form method = "post" name="changes" action="adminDeleteUserPage.php">
                                     <strong>user ID*: </strong> <select name="userid">
                                     <?php 
                                         $use = pg_query($db, "SELECT u.* FROM users u");

@@ -10,7 +10,8 @@ if (isset($_POST['return'])){
     $taskid = $_POST['taskid'];
     $bidUID = $_POST['bidUserID'];
     $bid = $_POST['bid'];
-    $submitid = pg_query($db, "SELECT s.suser_ID FROM submits s WHERE s.stask_ID = $1", array($taskid));
+    $res = pg_query($db, "SELECT s.suser_ID FROM submits s WHERE s.stask_ID = '$taskid'");
+    $submitid = pg_fetch_result($res, 0, 0);
     $bidSuccess = pg_query($db, "INSERT INTO bids VALUES ($bid_value, $bidUID, $taskid, $submitid)");
 
     $error = pg_last_error($db);
@@ -19,6 +20,7 @@ if (isset($_POST['return'])){
         console.log($error);
     }else
         echo "Bid successful";
+        header('Location: adminPage.php');
     }
 ?>
 
@@ -80,21 +82,10 @@ if (isset($_POST['return'])){
                                 </table>";
                             }
                             else{
-                                echo "<br>You cannot bid on any tasks currently!<br><br>";
+                                echo "<br>There are no task to bid on currently!<br><br>";
                             }
                             ?>
                         </div><br>
-                            <form method = "post" name="bid">
-                                <strong>Task ID*: </strong> <select name="taskid" action="adminBidSubmit.php">
-                                <?php 
-                                    $use = pg_query($db, "SELECT t.* FROM tasks t WHERE t.task_id = s.stask_ID AND t.task_allocated = 'FALSE'");
-                                    while ($rows = pg_fetch_array($use)){
-                                        echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
-                                    }   
-                                ?>
-                                </select>
-                                <br><br>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -108,14 +99,23 @@ if (isset($_POST['return'])){
                 <div class="col-md-7 text-left">
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
-                            <p><form method="post" name="form" action="userLogin.php">
+                            <p><form method="post" name="form" action="adminBidSubmit.php">
+                                <strong>Task ID*: </strong> <select name="taskid">
+                                <?php 
+                                    $use = pg_query($db, "SELECT t.* FROM tasks t WHERE t.task_id = s.stask_ID AND t.task_allocated = 'FALSE'");
+                                    while ($rows = pg_fetch_array($use)){
+                                        echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
+                                    }   
+                                ?>
+                                </select>
+                                <br><br>
                                 <div class='form-group'>
                                     <label for="inputUser">Bid User ID: </label>
                                     <input type="text" name="bidUserID" class="form-control" id="inputUser" required>
                                     <label for="inputUser">Bid Amount: </label>
                                     <input type="number" name="bid" class="form-control" id="inputUser" required>
                                 </div>
-                                <input type="submit" class="btn btn-primary" name="submit" value="Submit Changes">
+                                <input type="submit" class="btn btn-primary" name="submit" value="Submit Bid">
                             </p>
                             <p>Go Back?</p>
                             <p><a href="adminPage.php" class="btn btn-primary">Return to Admin Page</a></p>

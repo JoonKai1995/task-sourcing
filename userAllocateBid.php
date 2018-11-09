@@ -8,7 +8,7 @@ $result = pg_query($db, "SELECT b.buser_ID, b.bid_value FROM bids b WHERE b.btas
 if (isset($_POST['return'])){
     header("Location: userPage.php");
 }else if (isset($_POST['submit'])){
-    $allocid = $_POST['taskid'];
+    $allocid = $_POST['allocid'];
     $result2 = pg_query($db, "INSERT INTO allocated VALUES ('$allocid', '$taskid', $loginUID)");
 
     $error = pg_last_error($db);

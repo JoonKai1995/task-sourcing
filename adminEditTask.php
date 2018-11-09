@@ -15,34 +15,44 @@ if (isset($_POST['return'])){
     $updateResult = pg_query($db, "UPDATE tasks 
     SET task_description = '$taskdescription', location = '$place', task_date ='$date', task_time='$time'
     WHERE task_id = '$taskid'");
-}else if (isset($_POST['delete'])){
-    $taskid2 = $_POST['taskid2'];
-    $updateResult = pg_query($db, "DELETE FROM tasks
-    WHERE task_id = '$taskid2'");
-}else if(isset($_POST['create'])){
-    $taskid1 = $_POST['taskid1'];
-    $taskdescription1 = $_POST['description1'];
-    $place1 = $_POST['place1'];
-    $date1 = $_POST['date1'];
-    $time1 = $_POST['time1'];
-    $complete1 = $_POST['complete1'];
-    $updateResult1 = pg_query($db, "INSERT INTO 
-    tasks(task_id,task_description,location,task_date,task_time,task_completion)
-    VALUES ('$taskid1','$taskdescription1','$place1','$date1','$time1','$complete1')");   
     $error = pg_last_error($db);
-    }
     if(!$updateResult){
         echo $error;
         console.log($error);
     }else{
         echo "Update successful";
+        header("Location: adminEditTask.php");
     }
-    if(!$updateResult1){
+}else if (isset($_POST['delete'])){
+    $taskid2 = $_POST['taskid2'];
+    $updateResult = pg_query($db, "DELETE FROM tasks
+    WHERE task_id = '$taskid2'");
+    $error = pg_last_error($db);
+    if(!$updateResult){
         echo $error;
         console.log($error);
     }else{
         echo "Update successful";
+        header("Location: adminEditTask.php");
     }
+}else if(isset($_POST['create'])){
+    $uid = $_POST['sUID1'];
+    $taskid1 = $_POST['taskid1'];
+    $taskdescription1 = $_POST['description1'];
+    $place1 = $_POST['place1'];
+    $date1 = $_POST['date1'];
+    $time1 = $_POST['time1'];
+    $updateResult1 = pg_query($db, "INSERT INTO tasks VALUES ('$taskid1','$taskdescription1','$place1','$date1','$time1')"); 
+    $updateResult2 = pg_query($db, "INSERT INTO submits VALUES ('$uid','$taskid1')");
+    $error = pg_last_error($db);
+    if(!$updateResult){
+        echo $error;
+        console.log($error);
+    }else{
+        echo "Update successful";
+        header("Location: adminEditTask.php");
+    }
+}
 ?>
 
 <body>
@@ -129,11 +139,11 @@ if (isset($_POST['return'])){
                                     <label for="inputUser">Task Description: </label>
                                     <input type="text" name="description" class="form-control" id="inputUser" required>
                                     <label for="inputUser">Location: </label>
-                                    <input type="text" name="taskid" class="form-control" id="inputUser" required>
+                                    <input type="text" name="place" class="form-control" id="inputUser" required>
                                     <label for="inputUser">Date: </label>
-                                    <input type="date" name="taskid" class="form-control" id="inputUser" required>
+                                    <input type="date" name="date" class="form-control" id="inputUser" required>
                                     <label for="inputUser">Start Time: </label>
-                                    <input type="time" name="taskid" class="form-control" id="inputUser" required><br>
+                                    <input type="time" name="time" class="form-control" id="inputUser" required><br>
                                     <input type="submit" class="btn btn-primary" name="edit" value="Edit Task">
                                 </form>
                             </p>
@@ -169,6 +179,8 @@ if (isset($_POST['return'])){
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
                             <p><form method="post" name="form" action="adminEditTask.php">
+                                    <label for="inputUser">Submit User ID: </label>
+                                    <input type="text" name="sUID1" class="form-control" id="inputUser" required>
                                     <label for="inputUser">Task ID: </label>
                                     <input type="text" name="taskid1" class="form-control" id="inputUser" required>
                                     <label for="inputUser">Task Description: </label>

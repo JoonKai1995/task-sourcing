@@ -12,7 +12,7 @@ if (isset($_POST['submit1'])){
 }
 
 if (isset($_POST['submit2'])){
-    header("Location: adminCreateTask.php");
+    header("Location: adminEditTask.php");
 }
 
 if (isset($_POST['delete1'])){
@@ -28,11 +28,11 @@ if (isset($_POST['edit1'])){
 }
 
 if (isset($_POST['edit2'])){
-    header("Location: adminEditUser.php");
+    header("Location: adminEditUserPage.php");
 }
 
 if (isset($_POST['newAdmin'])){
-    header("Location: createNewAdmin.php");
+    header("Location: adminEditPage.php");
 }
 
 ?>
@@ -99,19 +99,19 @@ if (isset($_POST['newAdmin'])){
                                 </table>";
                             }
                             else{
-                                echo "<br>There are no available tasks currently!<br><br>";
+                                echo "<br>There are no tasks currently!<br><br>";
                             }
                             ?>
                         </div><br>
                         <div style="display: table-row">
                             <div style="width: 170px; display: table-cell;">
-                                <form method="post" name="form1" action="welcome.php">
+                                <form method="post" name="form1" action="adminPage.php">
                                     <input type="submit" name="submit1" class="btn btn-primary" value="Submit a Bid">
                                 </form>
                             </div>
                             <div style="display: table-cell;">
-                                <form method="post" name="form1" action="welcome.php">
-                                    <input type="submit" name="submit2" class="btn btn-primary" value="Create a Task">
+                                <form method="post" name="form1" action="adminPage.php">
+                                    <input type="submit" name="submit2" class="btn btn-primary" value="Task Options">
                                 </form>
                             </div>
                         </div>
@@ -128,7 +128,7 @@ if (isset($_POST['newAdmin'])){
                 <div class="col-md-7 text-left">
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
-                        <h1 class="mb30">Submitted Tasks:</h1>
+                        <h1 class="mb30">Submitted Bids:</h1>
                         <div style="height:250px;overflow:auto;">
                             <?php
                             if (pg_num_rows($result2) > 0) {
@@ -136,10 +136,9 @@ if (isset($_POST['newAdmin'])){
                                 <thead>
                                     <tr>
                                         <th>Task ID</th>
-                                        <th>Task Description</th>
-                                        <th>Location</th>
-                                        <th>Date</th>
-                                        <th>Start Time</th>
+                                        <th>Bid Value</th>
+                                        <th>User ID</th>
+                                        <th>Username</th>
                                     </tr>
                                 </thead>
                                 <tbody>";
@@ -149,33 +148,15 @@ if (isset($_POST['newAdmin'])){
                                     echo "<td>" . $row[1] . "</td>";
                                     echo "<td>" . $row[2] . "</td>";
                                     echo "<td>" . $row[3] . "</td>";
-                                    echo "<td>" . $row[4] . "</td>";
                                 }
                                 echo "</tbody>
                                 </table>";
                             }
                             else{
-                                echo "<br>You have not submitted any tasks currently!<br><br>";
+                                echo "<br>There are no bids currently!<br><br>";
                             }
                             ?>
                         </div><br>
-                        <div style="display: table-row">
-                            <div style="width: 170px; display: table-cell;">
-                                <form method="post" name="form" action="adminPage.php">
-                                    <input type="submit" name="edit2" class="btn btn-primary" value="Edit User">
-                                </form>
-                            </div>
-                            <div style="display: table-cell;">
-                                <form method="post" name="form" action="adminPage.php">
-                                    <input type="submit" name="delete2" class="btn btn-primary" value="Delete User">
-                                </form>
-                            </div>
-                            <div>
-                                <form method="post" name="form" action="adminPage.php">
-                                    <input type="submit" name="newAdmin" class="btn btn-primary" value="Create New Admin">
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -215,6 +196,14 @@ if (isset($_POST['newAdmin'])){
                                 echo "<br>There are no users currently!<br><br>";
                             }
                             ?>
+                        </div>
+                        <br><br>
+                        <div style="display: table-row">
+                            <div style="width: 170px; display: table-cell;">
+                                <form method="post" name="form" action="adminPage.php">
+                                    <input type="submit" name="edit2" class="btn btn-primary" value="Edit Users">
+                                </form>
+                            </div>
                         </div>
                         </div>
                     </div>
@@ -257,9 +246,15 @@ if (isset($_POST['newAdmin'])){
                                 </table>";
                             }
                             else{
-                                echo "<br>You are not allocated any tasks currently!<br><br>";
+                                echo "<br>There are no task allocations currently!<br><br>";
                             }
                             ?>
+                        </div>
+                        <br><br>
+                        <div>
+                            <form method="post" name="form" action="adminPage.php">
+                                <input type="submit" name="newAdmin" class="btn btn-primary" value="Admin Options">
+                            </form>
                         </div>
                         </div>
                     </div>
