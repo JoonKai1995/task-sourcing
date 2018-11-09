@@ -81,16 +81,6 @@ if (isset($_POST['delete'])){
                             }
                             ?>
                         </div><br>
-                            <form method = "post" name="changes">
-                                <strong>admin ID*: </strong> <select name="adminid">
-                                <?php 
-                                    $use = pg_query($db, "SELECT a.* FROM administrators a WHERE a.admin_id <> '$loginUID'");
-                                    while ($rows = pg_fetch_array($use)){
-                                        echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
-                                    }   
-                                ?>
-                                </select><br>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -105,19 +95,28 @@ if (isset($_POST['delete'])){
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
                             <p><form method="post" name="form" action="adminEditPage.php">
-                                <form method = "post" name="changes">
+                                <strong>admin ID*: </strong> <select name="adminid">
+                                <?php 
+                                    $use = pg_query($db, "SELECT a.* FROM administrators a WHERE a.admin_id <> '$loginUID'");
+                                    while ($rows = pg_fetch_array($use)){
+                                        echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
+                                    }   
+                                ?>
+                                </select>
+                                <br><br>
                                     <label for="inputUser">Username: </label>
                                     <input type="text" name="username" class="form-control" id="inputUser" required>
                                     <label for="inputUser">Password: </label>
                                     <input type="password" name="password" class="form-control" id="inputUser" required><br>
                                     <input type="submit" class="btn btn-primary" name="submit" value="Edit Admin">
                                 </form>
+                                <br>
                                 <form method="post" name="form" action="adminEditPage.php">
                                     <input type="submit" name="delete"class="btn btn-primary" value="Delete Admin Page">
                                 </form>
                             </p>
                             <p>Go Back?</p>
-                            <p><a href="adminPage.html" class="btn btn-primary">Return to Admin Page</a></p>
+                            <p><a href="adminPage.php" class="btn btn-primary">Return to Admin Page</a></p>
                         </div>
                     </div>
                 </div>

@@ -85,11 +85,10 @@ if (isset($_POST['return'])){
                 <div class="col-md-7 text-left">
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
-                            <p><form method="post" name="form" action="userLogin.php">
-                                <form method = "post" name="changes">
+                            <p><form method="post" name="form" action="userSelectTask.php">
                                 <strong>Task ID*: </strong> <select name="taskid">
                                 <?php 
-                                    $use = pg_query($db, "SELECT t.* FROM tasks t, submits s WHERE t.task_id = s.stask_ID AND s.suser_ID = $loginUID");
+                                    $use = pg_query($db, "SELECT t.* FROM tasks t, submits s WHERE t.task_id = s.stask_ID AND s.suser_ID = $loginUID AND t.task_allocated = 'False'");
                                     while ($rows = pg_fetch_array($use)){
                                         echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
                                     }   
@@ -100,7 +99,7 @@ if (isset($_POST['return'])){
                             </form>
                             </p>
                             <p>Go Back?</p>
-                            <p><a href="userPage.html" class="btn btn-primary">Return to User Page</a></p>
+                            <p><a href="userPage.php" class="btn btn-primary">Return to User Page</a></p>
                         </div>
                     </div>
                 </div>

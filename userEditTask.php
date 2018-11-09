@@ -93,16 +93,6 @@ if (isset($_POST['return'])){
                                     }
                                     ?>
                         </div><br>
-                            <form>
-                            <strong>Task ID*: </strong> <select name="taskid">
-                                <?php 
-                                    $use = pg_query($db, "SELECT t.* FROM tasks t, submits s WHERE t.task_id = s.stask_ID AND s.suser_ID = $loginUID");
-                                    while ($rows = pg_fetch_array($use)){
-                                        echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
-                                    }   
-                                ?>
-                                </select><br><br>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -116,21 +106,29 @@ if (isset($_POST['return'])){
                 <div class="col-md-7 text-left">
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
-                            <p><form method="post" name="form" action="editTask.php">
-                                <form method = "post" name="changes">
-                                    <label for="inputUser">Task Description: </label>
-                                    <input type="text" name="description" class="form-control" id="inputUser" required>
-                                    <label for="inputUser">Location: </label>
-                                    <input type="text" name="place" class="form-control" id="inputUser" required>
-                                    <label for="inputUser">Date: </label>
-                                    <input type="date" name="date" class="form-control" id="inputUser" required>
-                                    <label for="inputUser">Start Time: </label>
-                                    <input type="time" name="time" class="form-control" id="inputUser" required><br>
-                                    <input type="submit" class="btn btn-primary" name="submit">
-                                </form>
+                            <p><form method="post" name="form" action="userEditTask.php">
+                                <strong>Task ID*: </strong> <select name="taskid">
+                                <?php 
+                                    $use = pg_query($db, "SELECT t.* FROM tasks t, submits s WHERE t.task_id = s.stask_ID AND s.suser_ID = $loginUID");
+                                    while ($rows = pg_fetch_array($use)){
+                                        echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
+                                    }   
+                                ?>
+                                </select>
+                                <br><br>
+                                <label for="inputUser">Task Description: </label>
+                                <input type="text" name="description" class="form-control" id="inputUser" required>
+                                <label for="inputUser">Location: </label>
+                                <input type="text" name="place" class="form-control" id="inputUser" required>
+                                <label for="inputUser">Date: </label>
+                                <input type="date" name="date" class="form-control" id="inputUser" required>
+                                <label for="inputUser">Start Time: </label>
+                                <input type="time" name="time" class="form-control" id="inputUser" required><br>
+                                <input type="submit" class="btn btn-primary" name="submit">
+                            </form>
                             </p>
                             <p>Go Back?</p>
-                            <p><a href="userPage.html" class="btn btn-primary">Return to User Page</a></p>
+                            <p><a href="userPage.php" class="btn btn-primary">Return to User Page</a></p>
                         </div>
                     </div>
                 </div>

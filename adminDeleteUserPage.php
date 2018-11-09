@@ -102,7 +102,7 @@ if (isset($_POST['return'])){
                                 </form>
                             </p>
                             <p>Go Back?</p>
-                            <p><a href="adminPage.html" class="btn btn-primary">Return to Admin Page</a></p>
+                            <p><a href="adminPage.php" class="btn btn-primary">Return to Admin Page</a></p>
                         </div>
                     </div>
                 </div>

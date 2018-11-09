@@ -6,7 +6,8 @@ $result = pg_query($db, "SELECT t.* FROM tasks t, submits s WHERE t.task_id = s.
 
 if (isset($_POST['return'])){
     header("Location: userPage.php");
-}else if (isset($_POST['submit'])){
+}
+if (isset($_POST['submit'])){
     $taskdescription = $_POST['description'];
     $place = $_POST['place'];
     $date = $_POST['date'];
@@ -14,16 +15,18 @@ if (isset($_POST['return'])){
     $result1 = pg_query($db, 'SELECT MAX(task_id) FROM tasks');
     $old_tid = pg_fetch_result($result1, 0, 0);
     $new_tid = $old_tid + 1;
-    $updateResult = pg_query($db, "INSERT INTO tasks VALUES('$new_tid', '$taskdescription', '$place', '$date', '$time')");
+    $updateResult1 = pg_query($db, "INSERT INTO tasks VALUES('$new_tid', '$taskdescription', '$place', '$date', '$time')");
+    $updateResult2 = pg_query($db, "INSERT INTO submits VALUES('$loginUID', '$new_tid')");
 
     $error = pg_last_error($db);
-    if(!$updateResult){
+    if(!($updateResult1 && $updateResult2)){
         echo $error;
         console.log($error);
-    }else
+    }else {
         echo "Task Submission successful";
         header("Location: userPage.php");
     }
+}
 ?>
 <html>
 
@@ -53,17 +56,16 @@ if (isset($_POST['return'])){
         </div>
     </nav>
     </div>
-
-    <header id="fh5co-header" class="fh5co-cover-table2" role="banner">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7 text-left">
-                    <div class="display-t">
-                        <div class="display-tc animate-box" data-animate-effect="fadeInUp">
-                            <h1 class="mb30">Create a Task</h1>
-                            <p>
-                                <form method="post" name="form" action="userCreateTask.php">
+    <form method="post" name="form" action="userCreateTask.php">
+        <header id="fh5co-header" class="fh5co-cover-table2" role="banner">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 text-left">
+                        <div class="display-t">
+                            <div class="display-tc animate-box" data-animate-effect="fadeInUp">
+                                <h1 class="mb30">Create a Task</h1>
+                                <p>
                                     <div class='form-group'>
                                         <label for="inputUser">Task Description: </label>
                                         <input type="text" name="description" class="form-control" id="description" required>
@@ -72,23 +74,21 @@ if (isset($_POST['return'])){
                                         <label for="inputPassword">Location: </label>
                                         <input type="text" name="place" class="form-control" id="location" required>
                                     </div>
-                                </form>
-                            </p>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
-    <header id="fh5co-header" class="fh5co-cover-table2" role="banner">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7 text-left">
-                    <div class="display-t">
-                        <div class="display-tc animate-box" data-animate-effect="fadeInUp">
-                            <p>
-                                <form method="post" name="form" action="userCreateTask.php">
+        </header>
+        <header id="fh5co-header" class="fh5co-cover-table2" role="banner">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 text-left">
+                        <div class="display-t">
+                            <div class="display-tc animate-box" data-animate-effect="fadeInUp">
+                                <p>
                                     <div class='form-group'>
                                         <label for="inputPassword">Date: </label>
                                         <input type="date" name="date" class="form-control" id="date" required>
@@ -97,17 +97,18 @@ if (isset($_POST['return'])){
                                         <label for="inputPassword">Start Time: </label>
                                         <input type="time" name="time" class="form-control" id="time" required>
                                     </div>
-                                </form>
-                            <input type="submit" class="btn btn-primary" name="submit"><br><br>
-                            <p>Go Back?</p>
-                            <p><a href="userPage.php" class="btn btn-primary">Return to User Page</a></p>
-                            </p>
+                                    
+                                <input type="submit" class="btn btn-primary" name="submit"><br><br>
+                                <p>Go Back?</p>
+                                <p><a href="userPage.php" class="btn btn-primary">Return to User Page</a></p>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
+    </form>
     <!-- jQuery -->
     <script src="js/jquery.min.js"></script>
     <!-- jQuery Easing -->

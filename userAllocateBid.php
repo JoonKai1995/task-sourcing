@@ -71,7 +71,7 @@ if (isset($_POST['return'])){
                                 </table>";
                             }
                             else{
-                                echo "<br>You have not submitted any tasks currently!<br><br>";
+                                echo "<br>No bids on this task yet!<br><br>";
                             }
                             ?>
                         </div><br>
@@ -88,7 +88,7 @@ if (isset($_POST['return'])){
                 <div class="col-md-7 text-left">
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
-                            <p><form method = "post" name="changes">
+                            <p><form method = "post" name="changes" action="userAllocateBid.php">
                                 <strong>Bid User ID*: </strong> <select name="allocid">
                                 <?php 
                                     $use = pg_query($db, "SELECT b.buser_ID, b.bid_value FROM bids b WHERE b.btask_ID = $taskid");
@@ -102,7 +102,7 @@ if (isset($_POST['return'])){
                             </form>
                             </p>
                             <p>Go Back?</p>
-                            <p><a href="userPage.html" class="btn btn-primary">Return to User Page</a></p>
+                            <p><a href="userPage.php" class="btn btn-primary">Return to User Page</a></p>
                         </div>
                     </div>
                 </div>

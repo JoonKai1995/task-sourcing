@@ -118,7 +118,7 @@ if (isset($_POST['return'])){
                                 <input type="submit" class="btn btn-primary" name="submit" value="Submit Changes">
                             </p>
                             <p>Go Back?</p>
-                            <p><a href="adminPage.html" class="btn btn-primary">Return to Admin Page</a></p>
+                            <p><a href="adminPage.php" class="btn btn-primary">Return to Admin Page</a></p>
                         </div>
                     </div>
                 </div>

@@ -120,7 +120,7 @@ if (isset($_POST['return'])){
                                 <input type="submit" class="btn btn-primary" name="submit">
                             </p>
                             <p>Go Back?</p>
-                            <p><a href="userPage.html" class="btn btn-primary">Return to User Page</a></p>
+                            <p><a href="userPage.php" class="btn btn-primary">Return to User Page</a></p>
                         </div>
                     </div>
                 </div>

@@ -8,8 +8,7 @@ if (isset($_POST['return'])){
     header("Location: userPage.php");
 }else if (isset($_POST['submit'])){
     $taskid = $_POST['taskid'];
-    $updateResult = pg_query($db, "DELETE FROM tasks
-    WHERE task_id = '$taskid'");
+    $updateResult = pg_query($db, "DELETE FROM tasks WHERE task_id = '$taskid'");
 
     //$error = pg_last_error($db);
     if(!$updateResult){
@@ -17,6 +16,7 @@ if (isset($_POST['return'])){
         //echo $error;
     }else
         echo "Update successful";
+        header("Location: userPage.php");
     }
 ?>
 <html>
@@ -99,7 +99,7 @@ if (isset($_POST['return'])){
                 <div class="col-md-7 text-left">
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeInUp">
-                            <form method = "post" name="changes">
+                            <form method = "post" name="changes" action="userDeleteTask.php">
                                 <strong>Task ID*: </strong> <select name="taskid">
                                 <?php 
                                     $use = pg_query($db, "SELECT t.* FROM tasks t, submits s WHERE t.task_id = s.stask_ID AND s.suser_ID = $loginUID");
@@ -112,7 +112,7 @@ if (isset($_POST['return'])){
                                 <input type="submit" name="submit" class="btn btn-primary" value="Delete Selected">
                             </form>
                             <p>Go Back?</p>
-                            <p><a href="userPage.html" class="btn btn-primary">Return to User Page</a></p>
+                            <p><a href="userPage.php" class="btn btn-primary">Return to User Page</a></p>
                         </div>
                     </div>
                 </div>
