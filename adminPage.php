@@ -227,10 +227,9 @@ if (isset($_POST['newAdmin'])){
                                 <thead>
                                     <tr>
                                         <th>Task ID</th>
-                                        <th>Task Description</th>
-                                        <th>Location</th>
-                                        <th>Date</th>
-                                        <th>Start Time</th>
+                                        <th>User ID</th>
+                                        <th>User Name</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>";
@@ -239,8 +238,7 @@ if (isset($_POST['newAdmin'])){
                                     echo "<td>" . $row[0] . "</td>";
                                     echo "<td>" . $row[1] . "</td>";
                                     echo "<td>" . $row[2] . "</td>";
-                                    echo "<td>" . $row[3] . "</td>";
-                                    echo "<td>" . $row[4] . "</td>";
+                                   
                                 }
                                 echo "</tbody>
                                 </table>";
