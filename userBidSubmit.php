@@ -12,8 +12,9 @@ if (isset($_POST['return'])){
     $submitid = pg_query($db, "SELECT s.suser_ID FROM submits s WHERE s.stask_ID = $1", array($taskid));
     $bidSuccess = pg_query($db, "INSERT INTO bids VALUES ($bid, $loginUID, $taskid, $submitid)");
 
+
     $error = pg_last_error($db);
-    if(!$BidSuccess){
+    if(!$bidSuccess){
         echo $error;
         console.log($error);
     }else
@@ -118,6 +119,7 @@ if (isset($_POST['return'])){
                                     <input type="number" name="bid" class="form-control" id="inputUser" required>
                                 </div>
                                 <input type="submit" class="btn btn-primary" name="submit">
+
                             </p>
                             <p>Go Back?</p>
                             <p><a href="userPage.php" class="btn btn-primary">Return to User Page</a></p>

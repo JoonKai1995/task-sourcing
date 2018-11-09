@@ -93,6 +93,7 @@ if (isset($_POST['return'])){
                                     }
                                     ?>
                         </div><br>
+                            </div>
                         </div>
                     </div>
                 </div>
