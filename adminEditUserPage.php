@@ -18,7 +18,7 @@ if (isset($_POST['return'])){
         console.log($error);
     }else {
         echo "Update successful";
-        header("Location: adminEiditUserPage.php");
+        header("Location: adminEditUserPage.php");
     }
 }
 
