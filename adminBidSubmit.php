@@ -2,7 +2,7 @@
 include("header.php");
 //echo 'DB is connected';
 $loginUID = $_SESSION['u_id'];
-$result = pg_query($db, "SELECT t.* FROM tasks t WHERE t.task_id = s.stask_ID AND t.task_allocated = 'FALSE'");
+$result = pg_query($db, "SELECT t.* FROM tasks t, submits s WHERE t.task_id = s.stask_ID AND t.task_allocated = 'FALSE'");
 
 if (isset($_POST['return'])){
     header("Location: userPage.php");
@@ -15,7 +15,7 @@ if (isset($_POST['return'])){
     $bidSuccess = pg_query($db, "INSERT INTO bids VALUES ($bid_value, $bidUID, $taskid, $submitid)");
 
     $error = pg_last_error($db);
-    if(!$BidSuccess){
+    if(!$bidSuccess){
         echo $error;
         console.log($error);
     }else
@@ -102,7 +102,7 @@ if (isset($_POST['return'])){
                             <p><form method="post" name="form" action="adminBidSubmit.php">
                                 <strong>Task ID*: </strong> <select name="taskid">
                                 <?php 
-                                    $use = pg_query($db, "SELECT t.* FROM tasks t WHERE t.task_id = s.stask_ID AND t.task_allocated = 'FALSE'");
+                                    $use = pg_query($db, "SELECT t.* FROM tasks t,submits s WHERE t.task_id = s.stask_ID AND t.task_allocated = 'FALSE'");
                                     while ($rows = pg_fetch_array($use)){
                                         echo "<option value='".$rows[0]."'>".$rows[0]."</option>";
                                     }   
